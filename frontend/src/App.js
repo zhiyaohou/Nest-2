@@ -2,6 +2,7 @@
 import './App.css';
 import React from 'react';
 import createBlog from './createBlog';
+import getBlog from './getBlog';
 
 function App() {
   const id = 0;
@@ -18,7 +19,8 @@ function App() {
     <div className="App">
      <div>{blog.content}</div>
      <div>publishTime: {blog.publishTime}</div>
-     <div>createBlog</div>
+     <createBlog/>
+     <getBlog/>
     </div>
   );
 }

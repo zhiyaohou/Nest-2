@@ -1,7 +1,7 @@
-import { Controller, Get, Post, Delete, Patch, Param} from '@nestjs/common';
+import { Controller, Get, Post, Param, Session, Body} from '@nestjs/common';
 import { AppService } from './app.service';
 
-var blog: string = "offers come.";
+
 
 interface Comment
 {
@@ -39,31 +39,28 @@ export class blogController {
   } 
 
   @Post('createBlog')
-  createBlog(id:number,content:string, user:number, publishTime:Date, vote:number): Blog{
+  createBlog(@Session() session:any, @Body('content') content:string): Blog{
       //const form = {}
       //this.blogs.push(form);
-      const newBlog = {id, content, user, Date,vote}
+
+      const newBlog = {id:this.blogs.length, content:content, user:session.userId, publishTime:new Date(), vote:0}
       this.blogs.push(newBlog);
     return newBlog;
   }
 
-  @Delete('deleteBlog/:id')
+  //@Delete(':id')
+  @Post('delete/:id')
   delteBlog(@Param('id') id:number): string{
-      this.blogs.forEach(Element => {
-        if(this.Element.id = id){
-          this.blogs.pop( Element/*怎么根据ID找到该Blog */);
-        }
-      });
+    const f = this.blogs.findIndex(p=>p.id===id);
+    this.blogs.splice(f,1)
     return "delete success!";
   }
 
-  @Patch('updateBlog/:id')
-  updateBlog(@Param('id') id:number, content:string, user:number, publishTime:Date, vote:number): Blog{
-    this.blogs.forEach(Element => {
-      if(this.Element.id = id){
-        Element.content(content);
-      }
-    })
-    return Element;
+  @Post('updateBlog/:id')
+  updateBlog(@Param('id') id:number, @Body('content') content:string): Blog{
+    const find = this.blogs.find(element=>element.id === id)
+    find.content = content
+    find.publishTime = new Date()
+    return find;
   }
 }

@@ -3,10 +3,10 @@ import React from 'react';
 
 function deleteBlog() {
     const id = 0;
-    const [blog,setBlog] = React.useState({content:'loading...',publishTime:new Date().toString(),user:0,vote:1});
+    
     React.useEffect(()=>{
       fetch(`/blog/deleteBlog/${id}`,{
-        method:'delete',
+        method:'post',
         headers: {
           "Content-Type": "application/json"
       },
