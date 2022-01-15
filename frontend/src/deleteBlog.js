@@ -18,8 +18,7 @@ function deleteBlog() {
     },[id])
     console.log(blog.content);
     return (
-      <div className="App">
-       
+      <div >
       </div>
     );
   }

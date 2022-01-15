@@ -43,7 +43,7 @@ export class blogController {
       //const form = {}
       //this.blogs.push(form);
 
-      const newBlog = {id:this.blogs.length, content:content, user:session.userId, publishTime:new Date(), vote:0}
+      const newBlog = {id:this.blogs.length, content:content, user:1/*session.userId*/, publishTime:new Date(), vote:0}
       this.blogs.push(newBlog);
     return newBlog;
   }
@@ -57,9 +57,9 @@ export class blogController {
   }
 
   @Post('updateBlog/:id')
-  updateBlog(@Param('id') id:number, @Body('content') content:string): Blog{
+  updateBlog(@Param('id') id:number, @Body('content') conten:string): Blog{
     const find = this.blogs.find(element=>element.id === id)
-    find.content = content
+    find.content = conten
     find.publishTime = new Date()
     return find;
   }

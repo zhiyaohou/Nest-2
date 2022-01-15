@@ -1,28 +1,69 @@
 import './App.css';
 import React from 'react';
+import { Mentions, Form, Button } from 'antd';
 
-function updateBlog() {
-    const id = 0;
-    const [blog,setBlog] = React.useState({content:'loading...',publishTime:new Date().toString(),user:0,vote:1});
-    React.useEffect(()=>{
-      fetch(`/blog/updateBlog/${id}`,{
-        method:'Patch',
+
+function UpdateBlog() {
+  const { Option, getMentions } = Mentions;
+
+  const [form] = Form.useForm();
+  const id = 0;
+  const onReset = () => {
+    form.resetFields();
+  };
+
+  const onFinish = async () => {
+    try {
+      const values = await form.validateFields();
+      
+      console.log('Submit:', values);
+      fetch(`/blog/updateBlog/${id}`, {
+        method: 'post',
         headers: {
           "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    }).then(response => response.json())
-      .then(data => {
-        console.log(data);
-      });
-    },[id])
-    console.log(blog.content);
-    return (
-      <div className="App">
-       <input type="text" name="updateBlog"></input>
-       <button id="update" onClick={()=>alert('Update Successfully!')}>Submit</button>
-      </div>
-    );
-  }
+        },
+        body: JSON.stringify({ content: values })
+      })
+        .then(response => response.json())
+        .then(data => {
+          console.log(data);
+        });
+    } catch (errInfo) {
+      console.log('Error:', errInfo);
+    }
+  };
+
   
-  export default updateBlog;
+  return (
+    <div>
+      <Form form={form} layout="horizontal" onFinish={onFinish}>
+
+        <Form.Item
+          name="bio"
+          label="Bio"
+          labelCol={{ span: 6 }}
+          wrapperCol={{ span: 16 }}
+          rules={[{ required: true }]}
+        >
+          <Mentions rows={3} placeholder="You can use @ to ref user here">
+            <Option value="afc163">afc163</Option>
+            <Option value="zombieJ">zombieJ</Option>
+            <Option value="yesmeck">yesmeck</Option>
+          </Mentions>
+        </Form.Item>
+        <Form.Item wrapperCol={{ span: 14, offset: 6 }}>
+          <Button htmlType="submit" type="primary">
+            Submit
+          </Button>
+          &nbsp;&nbsp;&nbsp;
+          <Button htmlType="button" onClick={onReset}>
+            Reset
+          </Button>
+        </Form.Item>
+      </Form>
+    </div>
+  );
+}
+   
+  
+  export default UpdateBlog;

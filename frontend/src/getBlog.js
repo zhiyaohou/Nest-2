@@ -2,7 +2,7 @@ import './App.css';
 import React,{useState, useEffect} from 'react';
 
 
-function getBlog() {
+function GetBlog() {
   const id = 0;
   const [blog,setBlog] = React.useState({content:'loading...',publishTime:new Date().toString(),user:2,vote:15});
   React.useEffect(()=>{
@@ -22,4 +22,4 @@ function getBlog() {
   );
 }
 
-export default getBlog;
+export default GetBlog;

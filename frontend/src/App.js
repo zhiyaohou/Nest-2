@@ -1,26 +1,18 @@
 
 import './App.css';
 import React from 'react';
-import createBlog from './createBlog';
-import getBlog from './getBlog';
+import CreateBlog from './createBlog';
+import GetBlog from './getBlog';
+import UpdateBlog from './updateBlog';
+
 
 function App() {
-  const id = 0;
-  const [blog,setBlog] = React.useState({content:'loading...',publishTime:new Date().toString(),user:2,vote:15});
-  React.useEffect(()=>{
-    fetch(`/blog/getBlog/${id}`).then(response => response.json())
-    .then(data => {
-      console.log(data);
-      setBlog(data)
-    });
-  },[id])
-  console.log(blog.content);
+
   return (
     <div className="App">
-     <div>{blog.content}</div>
-     <div>publishTime: {blog.publishTime}</div>
-     <createBlog/>
-     <getBlog/>
+      <CreateBlog />
+      <GetBlog />
+      <UpdateBlog />
     </div>
   );
 }
