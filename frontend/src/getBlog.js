@@ -6,7 +6,8 @@ function GetBlog() {
   const id = 0;
   const [blog,setBlog] = React.useState({content:'loading...',publishTime:new Date().toString(),user:2,vote:15});
   React.useEffect(()=>{
-    fetch(`/blog/getBlog/${id}`).then(response => response.json())
+    fetch(`/blog/getBlog/${id}`)
+    .then(response => response.json())
     .then(data => {
       console.log(data);
       setBlog(data)
@@ -17,7 +18,7 @@ function GetBlog() {
     <div className="App">
      <div>{blog.content}</div>
      <div>publishTime: {blog.publishTime}</div>
-
+    
     </div>
   );
 }

@@ -1,26 +1,35 @@
 import './App.css';
 import React from 'react';
+import { Button } from 'antd';
 
-function deleteBlog() {
+function DeleteBlog() {
     const id = 0;
     
-    React.useEffect(()=>{
-      fetch(`/blog/deleteBlog/${id}`,{
-        method:'post',
-        headers: {
-          "Content-Type": "application/json"
-      },
-      body: JSON.stringify(data)
-    }).then(response => response.json())
-      .then(data => {
-        console.log(data);
-      });
-    },[id])
-    console.log(blog.content);
+    delete{
+      try {
+        const values = await form.validateFields()
+        console.log('Submit:', values)
+        fetch(`/blog/deleteBlog/${id}`, {
+          method: 'post',
+          headers: {
+            "Content-Type": "application/json"
+          }
+        })
+          .then(response => response.json())
+          .then(data => {
+            console.log(data);
+          });
+      } catch (errInfo) {
+        console.log('Error:', errInfo);
+      }
+    };
+    
+
     return (
       <div >
+        <Button type="link" onClick="delete()">Delete Blog</Button>
       </div>
     );
   }
   
-  export default deleteBlog;
+  export default DeleteBlog;

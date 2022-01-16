@@ -51,14 +51,17 @@ export class blogController {
   //@Delete(':id')
   @Post('delete/:id')
   delteBlog(@Param('id') id:number): string{
-    const f = this.blogs.findIndex(p=>p.id===id);
-    this.blogs.splice(f,1)
-    return "delete success!";
+    const blog = this.blogs.findIndex(p=>p.id===id);
+    this.blogs.splice(blog,1)
+    return "delete";
   }
 
   @Post('updateBlog/:id')
-  updateBlog(@Param('id') id:number, @Body('content') conten:string): Blog{
-    const find = this.blogs.find(element=>element.id === id)
+  updateBlog(@Param('id') id:string, @Body('content') conten:string): Blog{
+    console.log(id)
+    console.log(typeof id)
+    const nid = parseInt(id)
+    const find = this.blogs.find(element=>element.id === nid)
     find.content = conten
     find.publishTime = new Date()
     return find;

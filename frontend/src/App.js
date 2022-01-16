@@ -4,6 +4,7 @@ import React from 'react';
 import CreateBlog from './createBlog';
 import GetBlog from './getBlog';
 import UpdateBlog from './updateBlog';
+import DeleteBlog from './deleteBlog';
 
 
 function App() {
@@ -13,6 +14,7 @@ function App() {
       <CreateBlog />
       <GetBlog />
       <UpdateBlog />
+      <DeleteBlog />
     </div>
   );
 }
